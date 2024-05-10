@@ -44,17 +44,25 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
+  const cookieOptions = {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  };
+
+  // Check if the request is using HTTPS
+  if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
+    cookieOptions.secure = true;
+  }
+
   res
     .status(201)
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-    })
+    .cookie("token", "", cookieOptions)
     .json({
       success: true,
       message: "Logged Out Successfully.",
     });
 });
+
 
 
 export const getUser = catchAsyncErrors((req, res, next) => {
