@@ -18,6 +18,7 @@ app.use(
     origin: [process.env.FRONTEND_URL],
     method: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
+  
   })
 );
 

@@ -47,12 +47,11 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
   const cookieOptions = {
     httpOnly: true,
     expires: new Date(Date.now()),
+    secure:true,
+    samesite:"None"
   };
 
-  // Check if the request is using HTTPS
-  if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
-    cookieOptions.secure = true;
-  }
+ 
 
   res
     .status(201)
